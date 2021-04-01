@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-for="user in users" v-bind:key="user.id">{{ user.title }}</div>
+    <div v-for="item in ask" v-bind:key="item.id">{{ item.title }}</div>
   </div>
 </template>
 
@@ -10,13 +10,12 @@
   export default {
     data() {
       return {
-        users: []
+        ask: []
       }
     },
     created() {
-      var vm = this;
       fetchAskList()
-        .then(response => vm.users = response.data)
+        .then(response => this.ask = response.data)
         .catch(error => console.log(error))
     },
   }
