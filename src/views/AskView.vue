@@ -1,26 +1,37 @@
 <template>
   <div>
-    <div v-for="item in ask" v-bind:key="item.id">{{ item.title }}</div>
+    <list-item></list-item>
   </div>
-</template>
+</template> 
 
 <script>
-  import { fetchAskList } from '../api/index.js';
+import ListItem from '../components/ListItem.vue';
+  // import { mapState, mapGetters } from 'vuex';
 
   export default {
-    data() {
-      return {
-        ask: []
-      }
-    },
-    created() {
-      fetchAskList()
-        .then(response => this.ask = response.data)
-        .catch(error => console.log(error))
-    },
+    components: {
+      ListItem,
+    }
+    // computed: {
+    //   ...mapGetters ([ 
+    //     'fetchedAsk' 
+    //   ]),
+
+    //   // #2
+    //   // ...mapState({
+    //   //  fetchedAsk: state => state.ask
+    //   // }),
+
+    //   // #1
+    //   // ask() {
+    //   //  return this.$store.state.ask;
+    //   // } 
+    // },
+    // created() {
+    //   this.$store.dispatch('FETCH_ASK');
+    //   // fetchAskList()
+    //   //   .then(response => this.ask = response.data)
+    //   //   .catch(error => console.log(error))
+    // },
   }
 </script>
-
-<style>
-
-</style>
