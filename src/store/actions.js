@@ -1,8 +1,8 @@
-import { fetchNewsList, fetchJobsList, fetchAskList, fecthUserInfo, fetchItemInfo } from '../api/index.js'
+import { fetchNewsList, fetchJobsList, fetchAskList, fecthUserInfo, fetchItemInfo, fetchList } from '../api/index.js'
 
 export default {
   FETCH_NEWS(context) {
-    fetchNewsList()
+    return fetchNewsList()
       .then(response => {
         console.log(response.data);
         context.commit('SET_NEWS', response.data); // SET_NEWS에 데이터 전달
@@ -13,16 +13,17 @@ export default {
       });
   },
   FETCH_JOBS({ commit }) {
-    fetchJobsList()
+    return fetchJobsList()
       .then(({ data }) => {
         commit('SET_JOBS', data);
+        return data;
       })  
       .catch(error => {
         console.log(error);
       })
   },
   FETCH_ASK({ commit }) {
-    fetchAskList() 
+    return fetchAskList() 
       .then(({ data }) => {
         commit('SET_ASK', data);
       })
@@ -31,7 +32,7 @@ export default {
       })
   },
   FETCH_USER({ commit }, name) {
-    fecthUserInfo(name)
+    return fecthUserInfo(name)
       .then(({ data }) => {
         commit('SET_USER', data);
       })
@@ -40,12 +41,23 @@ export default {
       })
   },
   FETCH_ITEM({ commit }, id) {
-    fetchItemInfo(id) 
+    return fetchItemInfo(id) 
        .then(({ data }) => {
         commit('SET_ITEM', data);
       })
       .catch(error => {
         console.log(error);
       })
+  },
+  // #2
+  FETCH_LIST({ commit }, pageName) {
+    // #3
+    return fetchList(pageName)
+      .then(response => {
+        // #4
+        commit('SET_LIST', response.data); 
+        return response; 
+      })
+      .catch(error => console.log(error));
   }
 } 
